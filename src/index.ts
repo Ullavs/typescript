@@ -57,4 +57,57 @@ console.log(kgToLbs(10));
 kgToLbs("10kg");
 
 // Intersection types
-let weight: number & string;
+type Draggable = {
+  drag: () => void;
+};
+
+type Resizable = {
+  resize: () => void;
+};
+
+type UIWidget = Draggable & Resizable;
+
+let textBox: UIWidget = {
+  drag: () => {},
+  resize: () => {},
+};
+
+// Literal types
+type Quantity = 50 | 100;
+let quantity: Quantity = 100;
+
+type Metric = "cm" | "inch";
+
+// Nullable types
+function greet(name: string | null | undefined) {
+  if (name) {
+    console.log(name.toUpperCase());
+  } else {
+    console.log("hola");
+  }
+}
+
+greet(null);
+greet(undefined);
+
+// Optional chaining
+type Customer = {
+  birthday?: Date;
+};
+
+function getCustomer(id: number): Customer | null | undefined {
+  return id === 0 ? null : { birthday: new Date() };
+}
+
+let customer = getCustomer(1);
+// if (customer !== null && customer !== undefined) {
+//   console.log(customer.birthday);
+// }
+console.log(customer?.birthday?.getFullYear());
+
+// Optional element access operator
+// customers?.[0]
+
+// Optional call operator
+let log: any = null;
+log?.("a");
